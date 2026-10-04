@@ -21,6 +21,9 @@ def recv_exact(socket, n):
     recieved = socket.recv(n-len(data))
     data += recieved
 
+    if revieved = b"":
+      raise ConnectionError("Connection with socket is closed.")
+
   return data
 
 
@@ -36,7 +39,7 @@ def send_msg(socket, message):
 
   socket.sendall(header + payload)
 
-def recieve_msg(socket):
+def receive_msg(socket):
 
   header = recv_exact(socket, 4)
 
