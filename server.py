@@ -12,32 +12,31 @@ import protocol as prot
 import socket
 
 def handler(client_socket):
-  request = prot.recieve_msg(client_socket)
-  print(f"Recieved: {request}")
 
-#create server socket
+  while True:
+    try:
+      request = prot.recieve_msg(client_socket)
+      print(f"Recieved: {request}")
+    
+      prot.send_msg(client_socket, message)
+
+    except ConnectionError:
+      print("Connection Error")
+      break
+      
+    client_socket.close()
+
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-#bind()
 server_socket.bind(("0.0.0.0", 9090))
 
-#listen()
+message = {
+    "test": "message"
+  }
+
 server_socket.listen()
-print("Listening for a connection")
-
-while True:
-  
-  #accept()
-  client_socket, address = server_socket.accept()
-  print("Connection Established")
-  print(f"Address = {address}")
-  
-  #handle clients
-  #call receive_msg()
-  handler(client_socket)
-
-  #process requests
-
-
-  #call send_msg()
-  prot.send_msg(client_socket)
+      print("Listening for a connection")
+      
+      address = server_socket.accept()
+      print("Connection Established")
+      print(f"Address = {address}")
