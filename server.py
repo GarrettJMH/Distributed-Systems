@@ -10,33 +10,40 @@
 
 import protocol as prot
 import socket
+import concurrent.futures
 
 def handler(client_socket):
 
-  while True:
     try:
-      request = prot.recieve_msg(client_socket)
-      print(f"Recieved: {request}")
-    
-      prot.send_msg(client_socket, message)
+      while True:
+        request = prot.recieve_msg(client_socket)
+        print(f"Recieved: {request}")
+
+        message = {
+          "test": "message"
+        }
+        
+        prot.send_msg(client_socket, message)
 
     except ConnectionError:
       print("Connection Error")
       break
       
-    client_socket.close()
+    finally:
+      client_socket.close()
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 server_socket.bind(("0.0.0.0", 9090))
 
-message = {
-    "test": "message"
-  }
-
 server_socket.listen()
-      print("Listening for a connection")
-      
-      address = server_socket.accept()
-      print("Connection Established")
-      print(f"Address = {address}")
+print("Listening for a connection")
+
+with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+  while True:
+    client_socket, address = server_socket.accept()
+    print("Connection Established")
+    print(f"Address = {address}")
+
+    executor.submit(handler, client_socket)
+  
