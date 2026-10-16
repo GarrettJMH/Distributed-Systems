@@ -8,28 +8,30 @@
 - send response back with protocol file. (client sends Json style stuff)
 """
 
-import protocol.py as prot
+import protocol as prot
 import socket
 
 #create server socket
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 #bind()
-server_socket.bind(("localhost", 5000))
+server_socket.bind(("0.0.0.0", 9090))
 
 #listen()
 server_socket.listen()
 print("Listening for a connection")
 
-#accept()
-client_socket, address = server_socket.accept()
-print("Connection Established")
-print("Address = " + address)
-
-#handle clients
+while True:
   
-#call receive_msg()
+  #accept()
+  client_socket, address = server_socket.accept()
+  print("Connection Established")
+  print(f"Address = {address}")
   
-#process requests
-  
-#call send_msg()
+  #handle clients
+    
+  #call receive_msg()
+    
+  #process requests
+    
+  #call send_msg()
