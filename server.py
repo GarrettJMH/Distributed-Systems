@@ -11,6 +11,10 @@
 import protocol as prot
 import socket
 
+def handler(client_socket):
+  request = prot.recieve_msg(client_socket)
+  print(f"Recieved: {request}")
+
 #create server socket
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -29,9 +33,11 @@ while True:
   print(f"Address = {address}")
   
   #handle clients
-    
   #call receive_msg()
-    
+  handler(client_socket)
+
   #process requests
-    
+
+
   #call send_msg()
+  prot.send_msg(client_socket)
