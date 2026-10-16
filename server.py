@@ -27,7 +27,6 @@ def handler(client_socket):
 
     except ConnectionError:
       print("Connection Error")
-      break
       
     finally:
       client_socket.close()
