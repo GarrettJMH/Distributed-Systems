@@ -5,6 +5,8 @@ storage = {}
 
 queue = []
 
+condition = threading.Condition()
+
 lock = threading.Lock()
 
 def put(key, value):
