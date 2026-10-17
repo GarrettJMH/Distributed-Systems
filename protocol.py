@@ -26,7 +26,7 @@ def send_msg(socket, message):
 
 def receive_msg(socket):
   header = recv_exact(socket, 4)
-  length = struct.unpack("!I", header)
+  length = struct.unpack("!I", header)[0]
   payload = recv_exact(socket, length)
   
   decoded = payload.decode("utf-8")
