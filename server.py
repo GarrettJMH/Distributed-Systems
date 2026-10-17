@@ -24,7 +24,7 @@ def process_request(request):
     elif action == "ENQUEUE":
         
 
-    elif action == "QUEUE":
+    elif action == "DEQUEUE":
         
 
     else:
