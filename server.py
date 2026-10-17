@@ -18,7 +18,7 @@ def process_request(request):
     if action == "GET":
         
 
-    if action == "PUT":
+    elif action == "PUT":
         
 
     elif action == "ENQUEUE":
