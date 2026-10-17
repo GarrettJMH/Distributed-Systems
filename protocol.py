@@ -21,7 +21,7 @@ def recv_exact(socket, n):
     received = socket.recv(n-len(data))
     data += received
 
-    if revieved = b"":
+    if received = b"":
       raise ConnectionError("Connection with socket is closed.")
 
   return data
