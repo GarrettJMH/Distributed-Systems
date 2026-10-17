@@ -17,7 +17,7 @@ def handler(client_socket):
     try:
       while True:
         request = prot.recieve_msg(client_socket)
-        print(f"Recieved: {request}")
+        print(f"Received: {request}")
 
         message = {
           "test": "message"
