@@ -18,8 +18,8 @@ def recv_exact(socket, n):
   data = b""
 
   while len(data) < n:
-    recieved = socket.recv(n-len(data))
-    data += recieved
+    received = socket.recv(n-len(data))
+    data += received
 
     if revieved = b"":
       raise ConnectionError("Connection with socket is closed.")
