@@ -12,6 +12,28 @@ import protocol as prot
 import socket
 import concurrent.futures
 
+def process_request(request):
+    action = request.get("action")
+
+    if action == "GET":
+        
+
+    if action == "PUT":
+        
+
+    elif action == "ENQUEUE":
+        
+
+    elif action == "QUEUE":
+        
+
+    else:
+        return {
+            "status": "ERROR",
+            "message": "Action not found"
+        }
+    
+
 def handler(client_socket):
 
     try:
@@ -19,11 +41,9 @@ def handler(client_socket):
         request = prot.receive_msg(client_socket)
         print(f"Received: {request}")
 
-        message = {
-          "test": "message"
-        }
+        response = process_request(request)
         
-        prot.send_msg(client_socket, message)
+        prot.send_msg(client_socket, response)
 
     except ConnectionError:
       print("Connection Error")
