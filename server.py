@@ -38,7 +38,7 @@ server_socket.bind(("0.0.0.0", 9090))
 server_socket.listen()
 print("Listening for a connection")
 
-with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
   while True:
     client_socket, address = server_socket.accept()
     print("Connection Established")
