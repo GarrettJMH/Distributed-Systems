@@ -26,9 +26,9 @@ def enqueue(value):
 
 
 def dequeue():
-  with queue:
+  with condition:
     while len(queue) == 0:
       condition.wait()
 
-  return queue.pop(0)
+    return queue.pop(0)
 
