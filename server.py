@@ -1,9 +1,10 @@
-#Should run the actual server
+# Should run the actual server
 
 import protocol as prot
 import socket
 import concurrent.futures
 import storage as s
+
 
 def process_request(request):
     action = request.get("action")
@@ -26,10 +27,10 @@ def process_request(request):
         return {
             "status": "OK"
         }
-        
+
     elif action == "ENQUEUE":
         value = request.get("value")
-        
+
         s.enqueue(value)
 
         return {
@@ -43,44 +44,48 @@ def process_request(request):
             "status": "OK",
             "value": value
         }
-        
 
     else:
         return {
             "status": "ERROR",
             "message": "Action not found"
         }
-    
+
 
 def handler(client_socket):
 
     try:
-      while True:
-        request = prot.receive_msg(client_socket)
-        print(f"Received: {request}")
+        while True:
+            request = prot.receive_msg(client_socket)
+            print(f"Received: {request}")
 
-        response = process_request(request)
-        
-        prot.send_msg(client_socket, response)
+            response = process_request(request)
+
+            prot.send_msg(client_socket, response)
 
     except ConnectionError:
-      print("Connection Error")
-      
+        print("Client connection lost.")
+
     finally:
-      client_socket.close()
+        client_socket.close()
+
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 server_socket.bind(("0.0.0.0", 9090))
 
+print("Server initialized on 0.0.0.0:9090")
+
 server_socket.listen()
 print("Listening for a connection")
 
-with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
-  while True:
-    client_socket, address = server_socket.accept()
-    print("Connection Established")
-    print(f"Address = {address}")
+with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
 
-    executor.submit(handler, client_socket)
-  
+    print("Thread pool initialized with max_workers = 10")
+
+    while True:
+        client_socket, address = server_socket.accept()
+        print("Connection Established")
+        print(f"Address = {address}")
+
+        executor.submit(handler, client_socket)
