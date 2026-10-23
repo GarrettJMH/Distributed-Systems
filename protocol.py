@@ -7,10 +7,11 @@ def recv_exact(socket, n):
   data = b""
 
   while len(data) < n:
-    if received = b"":
+    received = socket.recv(n-len(data))
+    
+    if received == b"":
       raise ConnectionError("Connection with socket is closed.")
       
-    received = socket.recv(n-len(data))
     data += received
 
   return data
