@@ -9,18 +9,40 @@ def process_request(request):
     action = request.get("action")
 
     if action == "GET":
-        s.get(request)
+        key = request.get("key")
+        value = s.get(key)
+
+        return {
+            "status": "OK",
+            "value": value
+        }
 
     elif action == "PUT":
-        s.put(request)
-        
+        key = request.get("key")
+        value = request.get("value")
 
-    elif action == "ENQUEUE":
-        s.enqueue(request)
+        s.put(key, value)
+
+        return {
+            "status": "OK"
+        }
         
+    elif action == "ENQUEUE":
+        value = request.get("value")
+        
+        s.enqueue(value)
+
+        return {
+            "status": "OK"
+        }
 
     elif action == "DEQUEUE":
-        s.dequeue(request)
+        value = s.dequeue()
+
+        return {
+            "status": "OK"
+            "value": value
+        }
         
 
     else:
