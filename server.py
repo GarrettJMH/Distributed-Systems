@@ -3,20 +3,24 @@
 import protocol as prot
 import socket
 import concurrent.futures
+import storage as s
 
 def process_request(request):
     action = request.get("action")
 
     if action == "GET":
-        
+        s.get(request)
 
     elif action == "PUT":
+        s.put(request)
         
 
     elif action == "ENQUEUE":
+        s.enqueue(request)
         
 
     elif action == "DEQUEUE":
+        s.dequeue(request)
         
 
     else:
