@@ -40,7 +40,7 @@ def process_request(request):
         value = s.dequeue()
 
         return {
-            "status": "OK"
+            "status": "OK",
             "value": value
         }
         
